@@ -1,0 +1,22 @@
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/header :: header(~{::title},~{::link})">
+    <!--th:replace="header :: common_header(~{::title},~{})" : empty block of links-->
+    <!--th:replace="header :: common_header(_,~{::link})" :default value (in the header.html) will be used-->
+    <title>Baş sahypa</title>
+    <link rel="stylesheet" th:href="@{css/stylesheet.css}"/>
+
+</head>
+<body>
+<div th:insert="~{fragments/navigation::menuBlock}"></div>
+
+</div>
+<br>
+<div class="container col-sm-10">
+    <p>
+        Işgärleri hasaba alyş web sahypasyna gitmek üçin <a th:href="@{/registration}">basyň</a>
+    </p>
+    <br>
+    <p>Işgärleri gözlemek üçin <a th:href="@{/search}">basyň</a></p>
+</div>
+</body>
+</html>

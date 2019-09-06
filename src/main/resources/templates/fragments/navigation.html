@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!-- Navbar -->
+<div th:fragment="menuBlock">
+    <div class="container-fluid bg-light" >
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/">SNGIZ</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Baş sahypa </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/registration">Hasaba alyş</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/search">Gözleg</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Habarlaşmak üçin</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Bize ýazyň</a>
+                            <a class="dropdown-item" href="#">Teklipleriňiz</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Biziň salgymyz</a>
+                        </div>
+                    </li>
+
+                </ul>
+
+            </div>
+        </nav>
+
+
+
+    </div>
+    <section>
+        <div class="row justify-content-end" style="padding-right:50px" id="locales">
+            <a th:href="@{?language=tm}">TM</a> | <a th:href="@{?language=en}">EN</a> | <a th:href="@{?language=ru}">RU</a> | <a th:href="@{?language=tr}">TR</a>
+        </div>
+        <div class="col text-right">
+            <p>Sene: <span th:text="${today}">19 May 1987</span> </p>
+        </div>
+    </section>
+
+</div>

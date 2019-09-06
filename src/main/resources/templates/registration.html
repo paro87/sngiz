@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/header :: header(~{::title},~{::link})">
+    <!--th:replace="header :: common_header(~{::title},~{})" : empty block of links-->
+    <!--th:replace="header :: common_header(_,~{::link})" :default value (in the header.html) will be used-->
+    <title>Hasaba alyş sahypasy</title>
+    <link rel="stylesheet" th:href="@{css/stylesheet.css}"/>
+
+</head>
+<body>
+<div th:insert="~{fragments/navigation::menuBlock}"></div>
+
+</div>
+<br>
+<div class="container col-sm-10">
+
+
+    <form action="/registration" method="POST" th:object="${newEmployer}" enctype="multipart/form-data">
+
+        <ul th:if="${#fields.hasErrors('*')}" th:class="errorList">
+            <li th:each="err:${#fields.errors('*')}" th:text="${err}">Incorrect input</li>
+        </ul>
+        <!--#fields.hasErrors('*')=#fields.hasAnyErrors() , #fields.errors('*')=#fields.allErrors()-->
+        <!--
+        <ul th:if="${#fields.hasAnyErrors()}" th:class="errorList">
+            <li th:each="err:${#fields.allErrors()}" th:text="${err}">Incorrect input</li>
+        </ul>
+        -->
+
+        <p class="text-center text-info font-weight-bold" th:text="#{registration.personal_data}">Işgäriň şahsy maglumaty</p>
+        <div class="form-group row" id="required">
+            <label for="id" class="col-sm-3 col-form-label col-form-label-sm font-weight-bold required-field" th:text="#{registration.personal_data.id}">Şahsy belgisi :</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control form-control-sm font-italic" placeholder="1234" id="employer.id" name="employer.id">
+            </div>
+            <label for="photo" class="col-sm-3 col-form-label col-form-label-sm font-weight-bold required-field" th:text="#{registration.personal_data.photo}">Foto suraty :</label>
+            <div class="col-sm-3">
+                <input type="file" class="form-control form-control-sm font-italic" th:field="*{image}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="firstname" class="col-sm-3 col-form-label col-form-label-sm font-weight-bold required-field" th:text="#{registration.personal_data.firstname}">Ady :</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control form-control-sm font-italic" placeholder="Aman" th:field="*{employer.firstname}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="surname" class="col-sm-3 col-form-label col-form-label-sm font-weight-bold required-field" th:text="#{registration.personal_data.surname}">Familiýasy :</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control form-control-sm font-italic" placeholder="Berdiýew" th:field="*{employer.surname}">
+            </div>
+            <label for="fathersname" class="col-sm-3 col-form-label col-form-label-sm font-weight-bold required-field" th:text="#{registration.personal_data.fathersname}">Atasynyň ady :</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control form-control-sm font-italic" placeholder="Çaryýewiç" th:field="*{employer.fathersname}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="intpassport" class="col-sm-3 col-form-label col-form-label-sm font-weight-bold required-field" th:text="#{registration.personal_data.intpassport}">Daşarky pasport belgisi :</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control form-control-sm font-italic" placeholder="A0123456" th:field="*{employer.intpassport}">
+            </div>
+            <label for="dompassport" class="col-sm-3 col-form-label col-form-label-sm font-weight-bold required-field" th:text="#{registration.personal_data.dompassport}">Içerki pasport belgisi :</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control form-control-sm font-italic fieldTextColor" placeholder="I-LB 123456" th:field="*{employer.dompassport}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="birthday" class="col-sm-3 col-form-label col-form-label-sm font-weight-bold required-field" th:text="#{registration.personal_data.birthday}">Doglan senesi :</label>
+            <div class="col-sm-3">
+                <input type="date" class="form-control form-control-sm font-italic" placeholder="01/01/2001" th:field="*{employer.birthday}">
+            </div>
+            <label for="nationality" class="col-sm-3 col-form-label col-form-label-sm font-weight-bold required-field" th:text="#{registration.personal_data.nationality}">Milleti :</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control form-control-sm font-italic" placeholder="Türkmen" th:field="*{employer.nationality}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="education" class="col-sm-3 col-form-label col-form-label-sm font-weight-bold required-field" th:text="#{registration.personal_data.education}">Bilimi :</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control form-control-sm font-italic" placeholder="Ýokary" th:field="*{employer.education}">
+            </div>
+
+            <label for="familyStatus" class="col-sm-3 col-form-label col-form-label-sm font-weight-bold required-field" th:text="#{registration.personal_data.familyStatus}">Maşgala ýagdaýy :</label>
+            <div class="col-sm-3">
+                <select class="form-control form-control-sm font-italic" th:field="*{employer.familyStatus}" >
+                    <option th:text="#{familyStatus.toBeSelected}" th:value="#{familyStatus.toBeSelected}">Select</option>
+                    <option th:text="#{familyStatus.notMarriedMan}" th:value="#{familyStatus.notMarriedMan}">Not Married</option>
+                    <option th:text="#{familyStatus.marriedMan}" th:value="#{familyStatus.marriedMan}">Married</option>
+                    <option th:text="#{familyStatus.marriedWoman}" th:value="#{familyStatus.marriedWoman}">Married Woman</option>
+                    <option th:text="#{familyStatus.notMarriedWoman}" th:value="#{familyStatus.notMarriedWoman}">Not Married Woman</option>
+                    <option th:text="#{familyStatus.widow}" th:value="#{familyStatus.widow}">Widow</option>
+                    <option th:text="#{familyStatus.divorced}" th:value="#{familyStatus.divorced}">Divorced</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="languages" class="col-sm-3 col-form-label col-form-label-sm font-weight-bold" th:text="#{registration.personal_data.languages}">Bilýän dilleri :</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control form-control-sm font-italic" placeholder="rusça, iňlisçe" th:field="*{employer.languages}">
+                <!--Showing error below the input-->
+                <!--<p th:if="${#fields.hasErrors('employer.languages')}" th:text="#{Employer.validation.nationality.NotNull}" th:class="fieldError">Error</p>-->
+            </div>
+            <div class="col-sm-3">
+                <!--<p th:if="${#fields.hasErrors('employer.lanugages')}" th:text="#{Employer.validation.nationality.NotNull}" th:class="fieldError">Error</p>-->
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="email" class="col-sm-3 col-form-label col-form-label-sm font-weight-bold" th:text="#{registration.personal_data.email}">E-mail salgysy :</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control form-control-sm font-italic" name="email" placeholder="aman_berdiyev@meselem.com" th:field="*{employer.email}">
+            </div>
+
+            <label for="sex" class="col-sm-3 col-form-label col-form-label-sm font-weight-bold required-field" th:text="#{registration.personal_data.sex}">Jynsy :</label>
+            <div class="col-sm-3">
+                <div class="form-check form-check-inline ">
+                    <label class="form-check-label form-control-sm font-italic" for="radioMale" th:text="#{registration.personal_data.sex.male}">Erkek</label>
+                    <input class="form-check-input " type="radio" name="sex" id="radioMale" value="Erkek" checked th:field="*{employer.sex}">
+                </div>
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label  form-control-sm font-italic" for="radioFemale" th:text="#{registration.personal_data.sex.female}">Aýal</label>
+                    <input class="form-check-input " type="radio" name="sex" id="radioFemale" value="Aýal" th:field="*{employer.sex}">
+                </div>
+            </div>
+
+        </div>
+        <div class="form-group row">
+            <label for="prize" class="col-sm-3 col-form-label col-form-label-sm font-weight-bold" th:text="#{registration.personal_data.prize}">Sylaglary :</label>
+            <div class="col-sm-9">
+                <textarea class="form-control form-control-sm font-italic"rows="2" th:field="*{employer.prize}"></textarea>
+            </div>
+        </div>
+        <br>
+        <p class="text-center text-info font-weight-bold" th:text="#{registration.birth_data}">Işgäriň doglan ýeri barada maglumat</p>
+        <div class="form-group row">
+            <label for="birthCountry" class="col-sm-3 col-form-label col-form-label-sm font-weight-bold" th:text="#{registration.birth_data.birthCountry}">Ýurdy :</label>
+            <label for="birthState" class="col-sm-3 col-form-label col-form-label-sm font-weight-bold" th:text="#{registration.birth_data.birthState}">Welaýaty :</label>
+            <label for="birthCity" class="col-sm-3 col-form-label col-form-label-sm font-weight-bold" th:text="#{registration.birth_data.birthCity}">Şäheri :</label>
+            <label for="birthAddressRest" class="col-sm-3 col-form-label col-form-label-sm font-weight-bold" th:text="#{registration.birth_data.birthAddressRest}">Obasy / etraby / etrapçasy :</label>
+
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-3">
+                <input type="text" class="form-control form-control-sm font-italic" placeholder="Türkmenistan" th:field="*{birth.birthCountry}">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control form-control-sm font-italic" placeholder="Lebap" th:field="*{birth.birthState}">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control form-control-sm font-italic" placeholder="Seýdi" th:field="*{birth.birthCity}">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control form-control-sm font-italic" placeholder="Lamma" th:field="*{birth.birthAddressRest}">
+            </div>
+        </div>
+
+
+        <br>
+        <p class="text-center text-info font-weight-bold" th:text="#{registration.address_data}">Işgäriň ýaşaýan ýeri barada maglumat</p>
+        <div class="form-group row">
+            <label for="residenceCountry" class="col-sm-3 col-form-label col-form-label-sm font-weight-bold" th:text="#{registration.address_data.residenceCountry}">Ýurdy :</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control form-control-sm font-italic" placeholder="Türkmenistan" th:field="*{address.residenceCountry}">
+            </div>
+            <label for="residenceState" class="col-sm-3 col-form-label col-form-label-sm font-weight-bold" th:text="#{registration.address_data.residenceState}">Welaýaty :</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control form-control-sm font-italic" placeholder="Lebap" th:field="*{address.residenceState}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="residenceCity" class="col-sm-3 col-form-label col-form-label-sm font-weight-bold" th:text="#{registration.address_data.residenceCity}">Şäheri :</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control form-control-sm font-italic" placeholder="Seýdi" th:field="*{address.residenceCity}">
+            </div>
+            <label for="residenceRegion" class="col-sm-3 col-form-label col-form-label-sm font-weight-bold" th:text="#{registration.address_data.residenceRegion}">Etraby :</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control form-control-sm font-italic" placeholder="Dänew" th:field="*{address.residenceRegion}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="residenceRestAddress" class="col-sm-3 col-form-label col-form-label-sm font-weight-bold" th:text="#{registration.address_data.residenceRestAddress}">Salgysy :</label>
+            <div class="col-sm-9">
+                <textarea class="form-control form-control-sm font-italic" rows="1" placeholder="Azatlyk etrapçasy, Bitaraplyk köçesi, Jaý 1, Öý 2" th:field="*{address.residenceRestAddress}"></textarea>
+            </div>
+        </div>
+        <br>
+        <p class="text-center text-info font-weight-bold" th:text="#{registration.education_data}">Işgäriň bilimi barada maglumat</p>
+        <div id="content1">
+
+            <div class="form-group row">
+                <label for="finishedDate" class="col-sm-3 col-form-label col-form-label-sm font-weight-bold" th:text="#{registration.education_data.finishedDate}">Tamamlan senesi :</label>
+                <label for="collegeType" class="col-sm-3 col-form-label col-form-label-sm font-weight-bold" th:text="#{registration.education_data.collegeType}">Görnüşi :</label>
+                <label for="collegeName" class="col-sm-3 col-form-label col-form-label-sm font-weight-bold" th:text="#{registration.education_data.collegeName}">Ady :</label>
+                <label for="profession" class="col-sm-3 col-form-label col-form-label-sm font-weight-bold" th:text="#{registration.education_data.profession}">Bilimi boýunça hünäri :</label>
+            </div>
+
+            <div class="form-group row" id="0">
+                <div class="col-sm-3">
+                    <input type="month" class="form-control form-control-sm font-italic" placeholder="1998"  th:field="*{educationList[0].finishDate}">
+                </div>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control form-control-sm font-italic" placeholder="Uniwersitet" th:field="*{educationList[0].collegeType}">
+                </div>
+                <div class="col-sm-3">
+                    <textarea class="form-control form-control-sm font-italic" rows="1" placeholder="Türkmenistanyň Nebit we Gaz Instituty" th:field="*{educationList[0].collegeName}"></textarea>
+                </div>
+                <div class="col-sm-3">
+                    <textarea class="form-control form-control-sm font-italic" rows="1" placeholder="Nebit we gaz inženeri" th:field="*{educationList[0].profession}"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="col text-right">
+            <button type="button" class="btn btn-info col-sm-1 font-weight-bold" onclick="add(1)">+</button>
+        </div>
+        <br>
+
+
+        <p class="text-center text-info font-weight-bold" th:text="#{registration.job_data}">Işgäriň iş tejribesi barada maglumat</p>
+        <div id="content2">
+            <div class="form-group row">
+                <label for="startDate" class="col-sm-3 col-form-label col-form-label-sm font-weight-bold" th:text="#{registration.job_data.startDate}">Başlan ýyly :</label>
+                <label for="endDate" class="col-sm-3 col-form-label col-form-label-sm font-weight-bold" th:text="#{registration.job_data.endDate}">Aýrylan ýyly :</label>
+                <label for="companyName" class="col-sm-3 col-form-label col-form-label-sm font-weight-bold" th:text="#{registration.job_data.companyName}">Iş ýeriniň ady :</label>
+                <label for="position" class="col-sm-3 col-form-label col-form-label-sm font-weight-bold" th:text="#{registration.job_data.position}">Wezipesi :</label>
+
+            </div>
+            <div class="form-group row" id="0">
+                <div class="col-sm-3">
+                    <input type="month" class="form-control form-control-sm font-italic" placeholder="1998" th:field="*{jobList[0].startDate}">
+                </div>
+                <div class="col-sm-3">
+                    <input type="month" class="form-control form-control-sm font-italic" placeholder="2005" th:field="*{jobList[0].endDate}">
+                </div>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control form-control-sm font-italic" placeholder="Seýdiniň nebiti gaýtadan işleýän zawody" th:field="*{jobList[0].companyName}">
+                </div>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control form-control-sm font-italic" placeholder="Sehiň başlygy" th:field="*{jobList[0].position}">
+                </div>
+            </div>
+
+        </div>
+        <div class="col text-right">
+            <button type="button" class="btn btn-info col-sm-1 font-weight-bold" onclick="add(2)">+</button>
+        </div>
+
+        <br>
+        <p class="text-center text-info font-weight-bold" th:text="#{registration.family_data}">Işgäriň maşgalasy barada maglumat</p>
+        <div id="content3">
+            <div class="form-group row">
+                <label for="snfName" class="col-sm-3 col-form-label col-form-label-sm font-weight-bold" th:text="#{registration.family_data.snfName}">Familiýasy, ady we atasynyň ady :</label>
+                <label for="relationship" class="col-sm-1 col-form-label col-form-label-sm font-weight-bold" th:text="#{registration.family_data.relationship}">Derejesi:</label>
+                <label for="relBirthDate" class="col-sm-2 col-form-label col-form-label-sm font-weight-bold" th:text="#{registration.family_data.relBirthDate}">Doglan ýyly :</label>
+                <label for="relBirthPlace" class="col-sm-2 col-form-label col-form-label-sm font-weight-bold" th:text="#{registration.family_data.relBirthPlace}">Doglan ýeri :</label>
+                <label for="relAddress" class="col-sm-2 col-form-label col-form-label-sm font-weight-bold" th:text="#{registration.family_data.relAddress}">Ýaşaýyş salgysy :</label>
+                <label for="conviction" class="col-sm-2 col-form-label col-form-label-sm font-weight-bold" th:text="#{registration.family_data.conviction}">Suda çekilenligi :</label>
+            </div>
+            <div class="form-group row" id="0">
+                <div class="col-sm-3">
+                    <input type="text" class="form-control form-control-sm font-italic" name="snfName" placeholder=" Durdyýewa Maral Saparowna" th:field="*{familyList[0].snfName}">
+                </div>
+                <div class="col-sm-1">
+                    <input type="text" class="form-control form-control-sm font-italic" name="relationship" placeholder="Aýaly" th:field="*{familyList[0].relationship}">
+                </div>
+                <div class="col-sm-2">
+                    <input type="date" class="form-control form-control-sm font-italic" name="relBirthDate" placeholder="20.09.1989" th:field="*{familyList[0].relBirthDate}">
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control form-control-sm font-italic" name="relBirthPlace" placeholder="Lebap welaýaty Dänew etraby" th:field="*{familyList[0].relBirthPlace}">
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control form-control-sm font-italic" name="relAddress" placeholder="Lebap welaýaty Seýdi şäheri" th:field="*{familyList[0].relAddress}">
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control form-control-sm font-italic" name="conviction" placeholder="Ýok" th:field="*{familyList[0].conviction}">
+                </div>
+            </div>
+        </div>
+        <div class="col text-right">
+            <button type="button" class="btn btn-info col-sm-1 font-weight-bold" onclick="add(3)">+</button>
+        </div>
+        <br>
+        <div class="col text-right">
+            <button type="reset" class="btn btn-danger col-sm-1 " th:text="#{registration.cancel}">Ýatyr</button>
+            <button type="submit" class="btn btn-success col-sm-1 4" th:text="#{registration.confirm}">Sakla</button>
+        </div>
+        <br>
+
+
+    </form>
+
+    <script>
+        function add(tip){
+
+            var id=$('#content'+tip).children().last().attr('id');
+            alert(id);
+            id++;
+            if (tip==1)
+            {
+                $('#content'+tip).append('<div class="form-group row" id="'+id+'"><div class="col-sm-3"><input type="month" class="form-control form-control-sm font-italic" placeholder="1998"  id="educationList'+id+'.finishDate" name="educationList['+id+'].finishDate" value=""></div><div class="col-sm-3"><input type="text" class="form-control form-control-sm font-italic" placeholder="Uniwersitet" id="educationList'+id+'.collegeType" name="educationList['+id+'].collegeType" value=""></div><div class="col-sm-3"><textarea class="form-control form-control-sm font-italic" rows="1" placeholder="Türkmenistanyň Nebit we Gaz Instituty" id="educationList'+id+'.collegeName" name="educationList['+id+'].collegeName" value=""></textarea></div><div class="col-sm-3"><textarea class="form-control form-control-sm font-italic" rows="1" placeholder="Nebit we gaz inženeri" id="educationList'+id+'.profession" name="educationList['+id+'].profession" value=""></textarea></div></div>');
+            }
+
+            else if (tip==2)
+            {
+                $('#content'+tip).append('<div class="form-group row" id="'+id+'"><div class="col-sm-3"><input type="month" class="form-control form-control-sm font-italic" placeholder="1998" id="jobList'+id+'.startDate" name="jobList['+id+'].startDate" value=""></div> <div class="col-sm-3"> <input type="month" class="form-control form-control-sm font-italic" placeholder="2005" id="jobList'+id+'.endDate" name="jobList['+id+'].endDate" value=""> </div> <div class="col-sm-3"> <input type="text" class="form-control form-control-sm font-italic" placeholder="Seýdiniň nebiti gaýtadan işleýän zawody" id="jobList'+id+'.companyName" name="jobList['+id+'].companyName" value=""> </div> <div class="col-sm-3"> <input type="text" class="form-control form-control-sm font-italic" placeholder="Sehiň başlygy" id="jobList'+id+'.position" name="jobList['+id+'].position" value=""></div></div>');
+            }
+            else if (tip==3)
+
+            {
+
+                $('#content'+tip).append('<div class="form-group row" id="'+id+'">\n' +
+                    '                <div class="col-sm-3">\n' +
+                    '                    <input type="text" class="form-control form-control-sm font-italic" name="familyList['+id+'].snfName" placeholder=" Durdyýewa Maral Saparowna" id="familyList'+id+'.snfName" value="">\n' +
+                    '                </div>\n' +
+                    '                <div class="col-sm-1">\n' +
+                    '                    <input type="text" class="form-control form-control-sm font-italic" name="familyList['+id+'].relationship" placeholder="Aýaly" id="familyList'+id+'.relationship" value="">\n' +
+                    '                </div>\n' +
+                    '                <div class="col-sm-2">\n' +
+                    '                    <input type="date" class="form-control form-control-sm font-italic" name="familyList['+id+'].relBirthDate" placeholder="20.09.1989" id="familyList'+id+'.relBirthDate" value="">\n' +
+                    '                </div>\n' +
+                    '                <div class="col-sm-2">\n' +
+                    '                    <input type="text" class="form-control form-control-sm font-italic" name="familyList['+id+'].relBirthPlace" placeholder="Lebap welaýaty Dänew etraby" id="familyList'+id+'.relBirthPlace" value="">\n' +
+                    '                </div>\n' +
+                    '                <div class="col-sm-2">\n' +
+                    '                    <input type="text" class="form-control form-control-sm font-italic" name="familyList['+id+'].relAddress" placeholder="Lebap welaýaty Seýdi şäheri" id="familyList'+id+'.relAddress" value="">\n' +
+                    '                </div>\n' +
+                    '                <div class="col-sm-2">\n' +
+                    '                    <input type="text" class="form-control form-control-sm font-italic" name="familyList['+id+'].conviction" placeholder="Ýok" id="familyList'+id+'.conviction" value="">\n' +
+                    '                </div>\n' +
+                    '            </div>\n');
+            }
+        }
+    </script>
+
+
+</div>
+<div th:insert="~{fragments/footer::footerLine}"></div>
+</body>
+</html>

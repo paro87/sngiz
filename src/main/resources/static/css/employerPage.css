@@ -1,0 +1,9 @@
+.employerPhoto {
+    height:100%;
+    text-align:center;
+
+}
+img {
+    max-height:100%;
+    width:auto;
+}

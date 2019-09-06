@@ -1,0 +1,78 @@
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/header :: header(~{::title},~{::link})">
+    <!--th:replace="header :: common_header(~{::title},~{})" : empty block of links-->
+    <!--th:replace="header :: common_header(_,~{::link})" :default value (in the header.html) will be used-->
+    <title>Gözleg sahypasy</title>
+    <link rel="stylesheet" th:href="@{/css/stylesheet.css}"/>
+
+</head>
+<body>
+<div th:insert="~{fragments/navigation::menuBlock}"></div>
+
+</div>
+<br>
+<div class="container col-sm-10 my-5 ">
+    <form action="/search" method="POST" th:object="${query}">
+        <div class="input-group form-inline my-2 my-lg-0 justify-content-center">
+            <div class="input-group-prepend">
+                <select class="select rounded-left pl-2" th:field="*{criteria}">
+                    <option th:each="criteriaType: ${criteriaTypes}" th:text="#{${criteriaType.name}}" th:value="${criteriaType}"></option>
+             <!--
+                    <option th:text="#{search.all}" th:value="#{search.all}" selected>All</option>
+                    <option th:text="#{search.id}" th:value="#{search.id}" >ID</option>
+                    <option th:text="#{search.firstname}" th:value="#{search.firstname}" >Name</option>
+                    <option th:text="#{search.surname}" th:value="#{search.surname}">Surname</option>
+                    <option th:text="#{search.fathersname}" th:value="#{search.fathersname}">Father's name</option>
+                    <option th:text="#{search.intpasport}" th:value="#{search.intpasport}">International passport number</option>
+                    <option th:text="#{search.dompasport}" th:value="#{search.dompasport}">Domestic passport number</option>
+                    <option th:text="#{search.birthday}" th:value="#{search.birthday}">Birthday</option>
+                    <option th:text="#{search.nationality}" th:value="#{search.nationality}">Nationality</option>
+                    <option th:text="#{search.education}" th:value="#{search.education}">Education</option>
+                    <option th:text="#{search.familyStatus}" th:value="#{search.familyStatus}">Family status</option>
+                    <option th:text="#{search.email}" th:value="#{search.email}">E-mail</option>
+                    <option th:text="#{search.sex}" th:value="#{search.sex}">Sex</option>
+            -->
+
+
+                </select>
+
+            </div>
+
+            <input type="text" class="form-control mr-sm-2 col-sm-7 rounded-right" placeholder="..." aria-label="Search" th:field="*{value}">
+
+            <button class="btn btn-success my-2 my-sm-0" type="submit" th:text="#{search.search}" >Gözle</button>
+        </div>
+    </form>
+</div>
+<br>
+<div class="container col-7" th:unless="${#lists.isEmpty(searchResults)}">
+
+    <div class="row justify-content-center">
+        <table class="container table-hover table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th class="text-center" scope="col" style="width: 20%" >Şahsy belgisi</th>
+                <th class="text-center" scope="col" style="width: 20%">Ady</th>
+                <th class="text-center" scope="col" style="width: 20%">Familiýasy</th>
+                <th class="text-center" scope="col" style="width: 20%">Atasynyň ady</th>
+                <th class="text-center" scope="col" style="width: 5%"></th>
+
+
+            </tr>
+            </thead>
+            <tr th:each="employer : ${searchResults}">
+                <td class="text-center" th:text="${employer.id}">No id</td>
+                <td th:text="${employer.firstname}">No name</td>
+                <td th:text="${employer.surname}">No surname</td>
+                <td th:text="${employer.fathersname}">No father's name</td>
+                <!--The problem is I can't figure out how to add language param-->
+                <!--<td><a href="#" th:href="@{/employers/(employer=${employer.id})}" class="badge badge-info">Düzet</a></td>-->
+                <!--th:href="@{/classesTable/saveProfessor/{professorId}/{classesId} (professorId=${professor.id}, classesId=${classes.id})}"-->
+                <td><a href="#" th:href="@{/employers/{employer}(employer=${employer.id})}" class="badge badge-info">Seret</a></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

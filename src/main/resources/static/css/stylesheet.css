@@ -1,0 +1,26 @@
+form input[type=text]{
+    color: cornflowerblue;
+    font-weight: 500;
+}
+option:checked {
+    color: cornflowerblue;
+    font-weight: 500; }
+
+form input[type=text]::-webkit-input-placeholder {
+    color: gray;
+    font-weight: lighter;
+}
+
+.fieldError{
+    color: red;
+    font-size: 10px;
+    margin-bottom: 0px;
+    border-color: red;
+}
+.errorList{
+    color: red;
+}
+.required-field::after {
+    content: " *";
+    color: red;
+}

@@ -1,0 +1,174 @@
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/header :: header(~{::title},~{::link})">
+    <!--th:replace="header :: common_header(~{::title},~{})" : empty block of links, no th:block will be used or nothing is written for the <th:block th:replace="${links}" /> block-->
+    <!--th:replace="header :: common_header(_,~{::link})" :default value (in the header.html) will be used-->
+    <title>Işgär</title>
+    <link rel="stylesheet" th:href="@{css/employerPage.css}"/>
+
+
+</head>
+<body>
+<div th:insert="~{fragments/navigation::menuBlock}"></div>
+
+</div>
+<br>
+<div class="container col-sm-10">
+    <h2 class="text-center" th:text="#{employer.title}">Işgär</h2>
+    <div class="row justify-content-center">
+    <table class="container">
+        <tr>
+            <th class="font-weight-bold text-center" colspan="4" th:text="#{registration.personal_data}">No education data</th>
+        </tr>
+        <tr>
+            <th th:text="#{registration.personal_data.id}" style="width: 25%">Şahsy belgisi</th>
+            <td th:text="${employer.id}" style="width: 25%">No ID</td>
+            <td class="employerPhoto" rowspan=7 colspan="2" style="width: 50%" ><img th:src="@{'data:image/jpeg;base64,'+${image}}" height="160"></td>
+        </tr>
+        <tr>
+            <th th:text="#{registration.personal_data.firstname}">Ady</th>
+            <td th:text="${employer.firstname}">No name</td>
+        </tr>
+        <tr>
+            <th th:text="#{registration.personal_data.surname}">Familiýasy</th>
+            <td th:text="${employer.surname}">No surname</td>
+        </tr>
+        <tr>
+            <th th:text="#{registration.personal_data.fathersname}">Atasynyň ady</th>
+            <td th:text="${employer.fathersname}">No father's name</td>
+        </tr>
+        <tr>
+            <th th:text="#{registration.personal_data.intpassport}">Daşarky pasport belgisi</th>
+            <td th:text="${employer.intpassport}">No pasport number</td>
+        </tr>
+        <tr>
+            <th th:text="#{registration.personal_data.dompassport}">Içerki pasport belgisi</th>
+            <td th:text="${employer.dompassport}">No pasport number</td>
+        </tr>
+        <tr>
+            <th th:text="#{registration.personal_data.birthday}">Doglan senesi</th>
+            <td th:text="${employer.birthday}">No birth date</td>
+        </tr>
+        <tr>
+            <th th:text="#{registration.personal_data.nationality}">Milleti</th>
+            <td th:text="${employer.nationality}">No nationality</td>
+            <th th:text="#{registration.personal_data.languages}">Bilýän dilleri</th>
+            <td th:text="${employer.languages}">No language</td>
+        </tr>
+        <tr>
+            <th th:text="#{registration.personal_data.education}">Bilimi</th>
+            <td th:text="${employer.education}">No education</td>
+            <th th:text="#{registration.personal_data.familyStatus}">Maşgala ýagdaýy</th>
+            <td th:text="${employer.familyStatus}">No family status</td>
+        </tr>
+        <tr>
+            <th th:text="#{registration.personal_data.email}">E-mail</th>
+            <td th:text="${employer.email}">No e-mail</td>
+            <th th:text="#{registration.personal_data.sex}">Jynsy</th>
+            <td th:text="${employer.sex}">No sex</td>
+        </tr>
+        <tr>
+            <th th:text="#{registration.personal_data.prize}">Sylaglary</th>
+            <td colspan="3" th:text="${employer.prize}">No prizes</td>
+        </tr>
+        <tr>
+            <th class="font-weight-bold text-center" colspan="4" th:text="#{registration.birth_data}">No birth data</th>
+        </tr>
+        <tr>
+            <th th:text="#{registration.birth_data.birthCountry}" >Doglan ýurdy</th>
+            <td th:text="${employer.birth.birthCountry}" >No birth country</td>
+            <th th:text="#{registration.birth_data.birthState}">Doglan welaýaty</th>
+            <td th:text="${employer.birth.birthState}">No birth state</td>
+        </tr>
+        <tr>
+            <th th:text="#{registration.birth_data.birthCity}">Doglan şäheri</th>
+            <td th:text="${employer.birth.birthCity}">No birth city</td>
+            <th th:text="#{registration.birth_data.birthAddressRest}">Doglan ýeri salgysy</th>
+            <td th:text="${employer.birth.birthAddressRest}">No birth rest address</td>
+        </tr>
+        <tr>
+            <th class="font-weight-bold text-center" colspan="4" th:text="#{registration.address_data}">No birth data</th>
+        </tr>
+        <tr>
+            <th th:text="#{registration.address_data.residenceCountry}">Ýaşaýan ýurdy</th>
+            <td th:text="${employer.address.residenceCountry}">No address country</td>
+            <th th:text="#{registration.address_data.residenceCity}">Ýaşaýan şäheri</th>
+            <td th:text="${employer.address.residenceCity}">No birth state</td>
+        </tr>
+        <tr>
+            <th th:text="#{registration.address_data.residenceRegion}">Ýaşaýan etraby</th>
+            <td th:text="${employer.address.residenceRegion}">No address region</td>
+            <th th:text="#{registration.address_data.residenceRestAddress}">Ýaşaýan salgysy</th>
+            <td th:text="${employer.address.residenceRestAddress}">No rest address</td>
+        </tr>
+
+        <tr>
+            <th class="font-weight-bold text-center" colspan="4" th:text="#{registration.education_data}"><h2>No education data</h2>></th>
+        </tr>
+        <tr>
+            <th th:text="#{registration.education_data.finishedDate}">No finish date</th>
+            <th th:text="#{registration.education_data.collegeName}">No college name</th>
+            <th th:text="#{registration.education_data.collegeType}">No college type</th>
+            <th th:text="#{registration.education_data.profession}">No profession</th>
+        </tr>
+        <tr th:each="education : ${employer.educationList}">
+            <td th:text="${education.finishDate}">No finish date</td>
+            <td th:text="${education.collegeName}">No college name</td>
+            <td th:text="${education.collegeType}">No college type</td>
+            <td th:text="${education.profession}">No profession</td>
+        </tr>
+
+        <tr>
+            <th class="font-weight-bold text-center" colspan="4" th:text="#{registration.job_data}"><h2>No job data</h2>></th>
+        </tr>
+        <tr>
+            <th th:text="#{registration.job_data.startDate}">No finish date</th>
+            <th th:text="#{registration.job_data.endDate}">No college name</th>
+            <th th:text="#{registration.job_data.companyName}">No college type</th>
+            <th th:text="#{registration.job_data.position}">No profession</th>
+        </tr>
+        <tr th:each="job : ${employer.jobList}">
+            <td th:text="${job.startDate}">No start date</td>
+            <td th:text="${job.endDate}">No end date</td>
+            <td th:text="${job.companyName}">No company name</td>
+            <td th:text="${job.position}">No position</td>
+        </tr>
+
+        <tr>
+            <th class="font-weight-bold text-center" colspan="4" th:text="#{registration.family_data}"><h2>No family data</h2>></th>
+        </tr>
+
+
+
+
+
+    </table>
+
+        <table class=" container my-3 " th:each="relative : ${employer.familyList}">
+
+            <tr>
+                <th style="width: 25%" th:text="#{registration.family_data.snfName}">No name, surname data</th>
+                <td class="text-left" style="width: 25%" th:text="${relative.snfName}">No name, surname data</td>
+                <th style="width: 25%" th:text="#{registration.family_data.relationship}">No relationship</th>
+                <td class="text-left" style="width: 25%" th:text="${relative.relationship}">No relationship data</td>
+            </tr>
+            <tr>
+                <th th:text="#{registration.family_data.relBirthDate}">No birth date data</th>
+                <td th:text="${relative.relBirthDate}">No birth date data</td>
+                <th th:text="#{registration.family_data.relBirthPlace}">No birth place data</th>
+                <td th:text="${relative.relBirthPlace}">No birth place data</td>
+            </tr>
+            <tr >
+                <th th:text="#{registration.family_data.relAddress}">No relative address data</th>
+                <td th:text="${relative.relAddress}">No relative address</td>
+                <th th:text="#{registration.family_data.conviction}">No conviction data</th>
+                <td th:text="${relative.conviction}">No conviction</td>
+            </tr>
+
+
+        </table>
+    </div>
+
+</div>
+<div th:insert="~{fragments/footer::footerLine}"></div>
+</body>
+</html>
